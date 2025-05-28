@@ -9,7 +9,7 @@ public class Ventana extends JFrame {
     public Ventana instancia;
 
     public Ventana() {
-        setTitle("DOOM The Expendedor");
+        setTitle("The Expendedor");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1014,816));
         setSize(1014,816);
@@ -17,7 +17,7 @@ public class Ventana extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         Menu_Expendedor me = new Menu_Expendedor();
-        this.add(me,BorderLayout.SOUTH);
+        add(me, BorderLayout.CENTER);
         setVisible(true);
     }
 }
