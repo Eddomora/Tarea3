@@ -1,10 +1,13 @@
 package org.example.Logica;
 
 public abstract class Moneda implements Comparable<Moneda> {
-    public Moneda() {}
+    private int serie;
+    public Moneda(int serie) {
+        this.serie = serie;
+    }
 
-    public Moneda getSerie() {
-        return this;
+    public int getSerie() {
+        return serie;
     }
     /**
      * Devuelve el valor de la moneda.
@@ -27,8 +30,8 @@ public abstract class Moneda implements Comparable<Moneda> {
 }
 
 class Moneda1500 extends Moneda {
-    public Moneda1500() {
-        super();
+    public Moneda1500(int serie) {
+        super(serie);
     }
     public int getValor() {
         return 1500;
@@ -36,8 +39,8 @@ class Moneda1500 extends Moneda {
 }
 
 class Moneda1000 extends Moneda {
-    public Moneda1000() {
-        super();
+    public Moneda1000(int serie) {
+        super(serie);
     }
     public int getValor() {
         return 1000;
@@ -45,8 +48,8 @@ class Moneda1000 extends Moneda {
 }
 
 class Moneda500 extends Moneda {
-    public Moneda500() {
-        super();
+    public Moneda500(int serie) {
+        super(serie);
     }
     public int getValor() {
         return 500;
@@ -54,8 +57,8 @@ class Moneda500 extends Moneda {
 }
 
 class Moneda100 extends Moneda {
-    public Moneda100() {
-        super();
+    public Moneda100(int serie) {
+        super(serie);
     }
     public int getValor() {
         return 100;

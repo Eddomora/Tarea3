@@ -10,9 +10,9 @@ public class Ventana extends JFrame {
 
     public Ventana() {
         setTitle("The Expendedor");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Se cierra al apretar x
         setMinimumSize(new Dimension(1014,816));
-        setSize(1014,816);
+        setSize(1014,816); //el mismo que minimunSize
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);

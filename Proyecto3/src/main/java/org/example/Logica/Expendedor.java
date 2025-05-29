@@ -55,7 +55,7 @@ public class Expendedor {
      * @return el producto comprado (bebida o dulce).
      */
 
-    public Producto comprarProducto(Moneda moneda, int select, int precio) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
+    public Producto comprarProducto(Moneda moneda, PRECIOS select, int precio) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
         if (moneda == null) {
             throw new PagoIncorrectoException("No ingresaste una moneda");
         }
@@ -71,23 +71,23 @@ public class Expendedor {
         Bebida b = null;
         Dulces d = null;
         switch (select) {
-            case 1:
+            case PRECIOS.COCACOLA:
                 b = coca.getCosa();
                 break;
 
-            case 2:
+            case PRECIOS.SPRITE:
                 b = sprite.getCosa();
                 break;
 
-            case 3:
+            case PRECIOS.FANTA:
                 b = fanta.getCosa();
                 break;
 
-            case 4:
+            case PRECIOS.SNICKERS:
                 d = snickers.getCosa();
                 break;
 
-            case 5:
+            case PRECIOS.SUPER8:
                 d = super8.getCosa();
                 break;
 
@@ -101,7 +101,7 @@ public class Expendedor {
         }
         else{
             for (int i = 0; i < vuelto_temporal; i += 100) {
-                monVu.addCosa(new Moneda100());
+                monVu.addCosa(new Moneda100(i+1));
             }
             if (b == null){
                 monVu.getCosa();

@@ -1,6 +1,7 @@
 package org.example.Logica;
 
 import org.example.Logica.Excepciones.*;
+import org.example.Visual.Ventana;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,10 @@ import java.util.List;
  */
  public class Main {
     public static void main(String[] args){
-
+        //esto es todo lo que debería tener el main
+        Ventana v = new Ventana();
+        
+        /**
         List<Moneda> monedas = new ArrayList<>();
         monedas.add(new Moneda500());
         monedas.add(new Moneda100());
@@ -76,5 +80,6 @@ import java.util.List;
         } catch (PagoIncorrectoException | PagoInsuficienteException | NoHayProductoException e) {
             System.err.println(e.getMessage());
         }
+         **/
     }
 }
