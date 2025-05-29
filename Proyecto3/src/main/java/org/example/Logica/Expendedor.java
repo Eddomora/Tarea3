@@ -101,7 +101,7 @@ public class Expendedor {
         }
         else{
             for (int i = 0; i < vuelto_temporal; i += 100) {
-                monVu.addCosa(new Moneda100());
+                monVu.addCosa(new Moneda100(i+1));
             }
             if (b == null){
                 monVu.getCosa();
