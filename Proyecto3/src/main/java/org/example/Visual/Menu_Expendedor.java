@@ -1,5 +1,10 @@
 package org.example.Visual;
 
+import org.example.Logica.CocaCola;
+import org.example.Logica.Expendedor;
+import org.example.Logica.Moneda;
+import org.example.Logica.PRECIOS;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,8 +13,17 @@ import java.awt.event.KeyEvent;
 
 public class Menu_Expendedor extends JPanel implements ActionListener {
 
+    private JRadioButton cocaButton;
+    private JRadioButton fantaButton;
+    private JRadioButton spriteButton;
+    private JRadioButton snickerButton;
+    private JRadioButton super8Button;
+
     private JButton boton1;
     private JButton boton2;
+    private JButton botonComprar;
+    private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
+    // private Moneda moneda = new Moneda(99);
 
     static String cocaString = "CocaCola";
     static String fantaString = "Fanta";
@@ -18,7 +32,8 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
     static String super8String = "Super8";
 
     JLabel picture;
-    public Menu_Expendedor(){
+
+    public Menu_Expendedor() {
         super(new BorderLayout());
 
 //        super();
@@ -47,24 +62,24 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
 //        add(boton2);
 
         //Tablero de opciones sacado de RadioButtonDemo.java en examples Swing java
-        JRadioButton cocaButton = new JRadioButton(cocaString);
+        cocaButton = new JRadioButton(cocaString);
         cocaButton.setMnemonic(KeyEvent.VK_B);
         cocaButton.setActionCommand(cocaString);
         cocaButton.setSelected(true);
 
-        JRadioButton fantaButton = new JRadioButton(fantaString);
+        fantaButton = new JRadioButton(fantaString);
         fantaButton.setMnemonic(KeyEvent.VK_C);
         fantaButton.setActionCommand(fantaString);
 
-        JRadioButton spriteButton = new JRadioButton(spriteString);
+        spriteButton = new JRadioButton(spriteString);
         spriteButton.setMnemonic(KeyEvent.VK_D);
         spriteButton.setActionCommand(spriteString);
 
-        JRadioButton snickerButton = new JRadioButton(snickerString);
+        snickerButton = new JRadioButton(snickerString);
         snickerButton.setMnemonic(KeyEvent.VK_R);
         snickerButton.setActionCommand(snickerString);
 
-        JRadioButton super8Button = new JRadioButton(super8String);
+        super8Button = new JRadioButton(super8String);
         super8Button.setMnemonic(KeyEvent.VK_P);
         super8Button.setActionCommand(super8String);
 
@@ -95,10 +110,13 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
         radioPanel.add(snickerButton);
         radioPanel.add(super8Button);
 
+        botonComprar = new JButton("COMPRAR");
+        botonComprar.addActionListener(e -> realizarCompra());
 
         add(radioPanel, BorderLayout.LINE_START);
         add(picture, BorderLayout.CENTER);
-        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        add(botonComprar, BorderLayout.SOUTH);
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 
     @Override
@@ -126,6 +144,26 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
         } else {
             System.err.println("Couldn't find file: " + path);
             return null;
+        }
+    }
+    public void realizarCompra() {
+        PRECIOS tipo;
+        int precio;
+        if (cocaButton.isSelected()) {
+            tipo = PRECIOS.COCACOLA;
+            precio = PRECIOS.COCACOLA.getPrecio();
+        } else if (fantaButton.isSelected()) {
+            tipo = PRECIOS.FANTA;
+            precio = PRECIOS.FANTA.getPrecio();
+        } else if (spriteButton.isSelected()) {
+            tipo = PRECIOS.SPRITE;
+            precio = PRECIOS.SPRITE.getPrecio();
+        } else if (snickerButton.isSelected()) {
+            tipo = PRECIOS.SNICKERS;
+            precio = PRECIOS.SNICKERS.getPrecio();
+        } else if (super8Button.isSelected()) {
+            tipo = PRECIOS.SUPER8;
+            precio = PRECIOS.SUPER8.getPrecio();
         }
     }
 }
