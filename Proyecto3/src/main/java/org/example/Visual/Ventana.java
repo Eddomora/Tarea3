@@ -1,5 +1,5 @@
 package org.example.Visual;
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 //Esto es lo que rescaté de la ayudantía (algunas funciones no se que hacen).
 public class Ventana extends JFrame {
@@ -16,8 +16,12 @@ public class Ventana extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-        Menu_Expendedor me = new Menu_Expendedor();
-        add(me, BorderLayout.CENTER);
+        //Menu_Expendedor me = new Menu_Expendedor();
+        JComponent newContentPane = new Menu_Expendedor();
+        add(newContentPane, BorderLayout.CENTER);
+        newContentPane.setOpaque(true);
+        setContentPane(newContentPane);
+        pack();
         setVisible(true);
     }
 }
