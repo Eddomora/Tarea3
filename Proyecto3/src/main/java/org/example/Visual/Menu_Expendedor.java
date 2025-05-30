@@ -1,10 +1,6 @@
 package org.example.Visual;
 
-import org.example.Logica.CocaCola;
-import org.example.Logica.Expendedor;
-import org.example.Logica.Moneda;
-import org.example.Logica.PRECIOS;
-
+import org.example.Logica.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +19,10 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
     private JButton boton2;
     private JButton botonComprar;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
-    // private Moneda moneda = new Moneda(99);
+
+    private Moneda m = new Moneda1500(1);
+    private int dineroDisp = m.getValor();
+    private JLabel labelDinero;
 
     static String cocaString = "CocaCola";
     static String fantaString = "Fanta";
@@ -109,10 +108,16 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
         radioPanel.add(spriteButton);
         radioPanel.add(snickerButton);
         radioPanel.add(super8Button);
+    //Creación de panel para ver el dinero disponible para comprar.
+        JPanel panelEstado = new JPanel();
+        panelEstado.setLayout(new BoxLayout(panelEstado, BoxLayout.Y_AXIS));
+        labelDinero = new JLabel("DINERO: $" + dineroDisp);
+        panelEstado.add(labelDinero);
 
         botonComprar = new JButton("COMPRAR");
         botonComprar.addActionListener(e -> realizarCompra());
 
+        add(panelEstado, BorderLayout.LINE_END);
         add(radioPanel, BorderLayout.LINE_START);
         add(picture, BorderLayout.CENTER);
         add(botonComprar, BorderLayout.SOUTH);
@@ -146,24 +151,61 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
             return null;
         }
     }
+
+    //Esta parte está harto desordenada por mi parte MB, tal vez con switch se vea mas ordenado pero no se usarlo XD
     public void realizarCompra() {
         PRECIOS tipo;
         int precio;
         if (cocaButton.isSelected()) {
             tipo = PRECIOS.COCACOLA;
             precio = PRECIOS.COCACOLA.getPrecio();
+            if (precio > dineroDisp) {
+                JOptionPane.showMessageDialog(this, "Dinero Insuficiente");
+                return;
+            } else {
+                dineroDisp -= precio;
+                labelDinero.setText("DINERO: $" + dineroDisp);
+            }
         } else if (fantaButton.isSelected()) {
             tipo = PRECIOS.FANTA;
             precio = PRECIOS.FANTA.getPrecio();
+            if (precio > dineroDisp) {
+                JOptionPane.showMessageDialog(this, "Dinero Insuficiente");
+                return;
+            } else {
+                dineroDisp -= precio;
+                labelDinero.setText("DINERO: $" + dineroDisp);
+            }
         } else if (spriteButton.isSelected()) {
             tipo = PRECIOS.SPRITE;
             precio = PRECIOS.SPRITE.getPrecio();
+            if (precio > dineroDisp) {
+                JOptionPane.showMessageDialog(this, "Dinero Insuficiente");
+                return;
+            } else {
+                dineroDisp -= precio;
+                labelDinero.setText("DINERO: $" + dineroDisp);
+            }
         } else if (snickerButton.isSelected()) {
             tipo = PRECIOS.SNICKERS;
             precio = PRECIOS.SNICKERS.getPrecio();
+            if (precio > dineroDisp) {
+                JOptionPane.showMessageDialog(this, "Dinero Insuficiente");
+                return;
+            } else {
+                dineroDisp -= precio;
+                labelDinero.setText("DINERO: $" + dineroDisp);
+            }
         } else if (super8Button.isSelected()) {
             tipo = PRECIOS.SUPER8;
             precio = PRECIOS.SUPER8.getPrecio();
+            if (precio > dineroDisp) {
+                JOptionPane.showMessageDialog(this, "Dinero Insuficiente");
+                return;
+            } else {
+                dineroDisp -= precio;
+                labelDinero.setText("DINERO: $" + dineroDisp);
+            }
         }
     }
 }
