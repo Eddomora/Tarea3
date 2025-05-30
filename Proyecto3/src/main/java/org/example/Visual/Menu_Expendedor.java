@@ -15,9 +15,10 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
     private JRadioButton snickerButton;
     private JRadioButton super8Button;
 
-    private JButton boton1;
-    private JButton boton2;
+    //private JButton boton1;
+    //private JButton boton2;
     private JButton botonComprar;
+    private JButton botonReinicio;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
 
     private Moneda m = new Moneda1500(1);
@@ -108,19 +109,28 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
         radioPanel.add(spriteButton);
         radioPanel.add(snickerButton);
         radioPanel.add(super8Button);
+
     //Creación de panel para ver el dinero disponible para comprar.
         JPanel panelEstado = new JPanel();
         panelEstado.setLayout(new BoxLayout(panelEstado, BoxLayout.Y_AXIS));
         labelDinero = new JLabel("DINERO: $" + dineroDisp);
         panelEstado.add(labelDinero);
 
+        JPanel panelInferior = new JPanel();
+
         botonComprar = new JButton("COMPRAR");
         botonComprar.addActionListener(e -> realizarCompra());
+
+        botonReinicio = new JButton("REINICIO");
+        botonReinicio.addActionListener(e -> reinicioDinero());
+
+        panelInferior.add(botonReinicio);
+        panelInferior.add(botonComprar);
 
         add(panelEstado, BorderLayout.LINE_END);
         add(radioPanel, BorderLayout.LINE_START);
         add(picture, BorderLayout.CENTER);
-        add(botonComprar, BorderLayout.SOUTH);
+        add(panelInferior, BorderLayout.SOUTH);
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 
@@ -165,6 +175,8 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
             } else {
                 dineroDisp -= precio;
                 labelDinero.setText("DINERO: $" + dineroDisp);
+                JOptionPane.showMessageDialog(this, "Compraste una Coca Cola, Disfrutala!");
+
             }
         } else if (fantaButton.isSelected()) {
             tipo = PRECIOS.FANTA;
@@ -175,6 +187,8 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
             } else {
                 dineroDisp -= precio;
                 labelDinero.setText("DINERO: $" + dineroDisp);
+                JOptionPane.showMessageDialog(this, "Compraste una Fanta, Disfrutala!");
+
             }
         } else if (spriteButton.isSelected()) {
             tipo = PRECIOS.SPRITE;
@@ -185,6 +199,8 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
             } else {
                 dineroDisp -= precio;
                 labelDinero.setText("DINERO: $" + dineroDisp);
+                JOptionPane.showMessageDialog(this, "Compraste una Sprite, Disfrutala!");
+
             }
         } else if (snickerButton.isSelected()) {
             tipo = PRECIOS.SNICKERS;
@@ -195,6 +211,7 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
             } else {
                 dineroDisp -= precio;
                 labelDinero.setText("DINERO: $" + dineroDisp);
+                JOptionPane.showMessageDialog(this, "Compraste un Snicker, Disfrutalo!");
             }
         } else if (super8Button.isSelected()) {
             tipo = PRECIOS.SUPER8;
@@ -205,7 +222,14 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
             } else {
                 dineroDisp -= precio;
                 labelDinero.setText("DINERO: $" + dineroDisp);
+                JOptionPane.showMessageDialog(this, "Compraste un Super 8, Disfrutalo!");
+
             }
         }
+    }
+
+    public void reinicioDinero(){
+        dineroDisp = m.getValor();
+        labelDinero.setText("DINERO: $" + dineroDisp);
     }
 }
