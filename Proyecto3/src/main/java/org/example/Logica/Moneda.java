@@ -29,29 +29,3 @@ public abstract class Moneda implements Comparable<Moneda> {
     }
 }
 
-class Moneda1000 extends Moneda {
-    public Moneda1000(int serie) {
-        super(serie);
-    }
-    public int getValor() {
-        return 1000;
-    }
-}
-
-class Moneda500 extends Moneda {
-    public Moneda500(int serie) {
-        super(serie);
-    }
-    public int getValor() {
-        return 500;
-    }
-}
-
-class Moneda100 extends Moneda {
-    public Moneda100(int serie) {
-        super(serie);
-    }
-    public int getValor() {
-        return 100;
-    }
-}
