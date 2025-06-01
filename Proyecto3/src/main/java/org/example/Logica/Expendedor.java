@@ -121,4 +121,15 @@ public class Expendedor {
     public Moneda getVuelto() {
         return monVu.getCosa();
     }
+
+    public int getStock(PRECIOS tipo) {
+        switch (tipo) {
+            case COCACOLA: return coca.size();
+            case FANTA: return fanta.size();
+            case SPRITE: return sprite.size();
+            case SNICKERS: return snickers.size();
+            case SUPER8: return super8.size();
+            default: return 0;
+        }
+    }
 }
