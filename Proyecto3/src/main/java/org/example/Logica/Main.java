@@ -8,10 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Clase principal que prueba el funcionamiento del sistema de compra de productos
- * a través del uso de monedas y un expendedor. Se simulan distintos escenarios como:
- * intento de compra sin moneda, compra con dinero insuficiente, compra exitosa con o sin vuelto,
- * y compra cuando el producto no está disponible.
+ *  Desde aquí probamos la interfaz gráfica, solo instanciamos una ventana
+ *  Todo lo demás debe provenir de la ventana, como en un diagrama de árbol
  *
  * @author Ignacio Soto
  */
