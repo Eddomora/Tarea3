@@ -24,6 +24,8 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
     private Moneda m = new Moneda1500(1);
     private int dineroDisp = m.getValor();
     private JLabel labelDinero;
+    private JLabel[] labelStock = new JLabel[5]; //numero de productors
+    private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
 
     static String cocaString = "CocaCola";
     static String fantaString = "Fanta";
@@ -115,6 +117,11 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
         panelEstado.setLayout(new BoxLayout(panelEstado, BoxLayout.Y_AXIS));
         labelDinero = new JLabel("DINERO: $" + dineroDisp);
         panelEstado.add(labelDinero);
+        //labels para stock de cada producto
+        for(int i = 0; i<labelStock.length; i++) {
+            labelStock[i] = new JLabel(nombreProductos[i] + ": 10 unidades");
+            panelEstado.add(labelStock[i]);
+        }
 
         JPanel panelInferior = new JPanel();
 
@@ -163,7 +170,7 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
     }
 
     //Esta parte está harto desordenada por mi parte MB, tal vez con switch se vea mas ordenado pero no se usarlo XD
-    public void realizarCompra() {
+    /*public void realizarCompra() {
         PRECIOS tipo;
         int precio;
         if (cocaButton.isSelected()) {
@@ -226,10 +233,55 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
 
             }
         }
+    } */
+    public void realizarCompra() {
+        PRECIOS tipo = null;
+        int precio = 0;
+        if (cocaButton.isSelected()) {
+            tipo = PRECIOS.COCACOLA;
+            precio = PRECIOS.COCACOLA.getPrecio();
+        } else if (fantaButton.isSelected()) {
+            tipo = PRECIOS.FANTA;
+            precio = PRECIOS.FANTA.getPrecio();
+        } else if (spriteButton.isSelected()) {
+            tipo = PRECIOS.SPRITE;
+            precio = PRECIOS.SPRITE.getPrecio();
+        } else if (snickerButton.isSelected()) {
+            tipo = PRECIOS.SNICKERS;
+            precio = PRECIOS.SNICKERS.getPrecio();
+        } else if (super8Button.isSelected()) {
+            tipo = PRECIOS.SUPER8;
+            precio = PRECIOS.SUPER8.getPrecio();
+        }
+        try {
+            Comprador c = new Comprador(m, tipo, precio, expendedor);
+            String producto = c.queCompraste();
+            int vuelto = c.cuantoVuelto();
+            dineroDisp = vuelto;
+            labelDinero.setText("Dinero: $" + dineroDisp);
+
+            actualizarStock();
+
+            JOptionPane.showMessageDialog(this,
+                    "Compraste: " + producto +
+                            "\nVuelto: $" + vuelto);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error en la compra: " + e.getMessage());
+        }
     }
 
     public void reinicioDinero(){
         dineroDisp = m.getValor();
         labelDinero.setText("DINERO: $" + dineroDisp);
+    }
+
+    private void actualizarStock() {
+        for (int i = 0; i < PRECIOS.values().length; i++) {
+            PRECIOS producto = PRECIOS.values()[i];
+            int stock = expendedor.getStock(producto);
+            labelStock[i].setText(producto.name() +": "+ stock + " unidades.");
+        }
     }
 }

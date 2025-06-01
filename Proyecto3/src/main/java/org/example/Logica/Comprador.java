@@ -1,7 +1,7 @@
 package org.example.Logica;
 import org.example.Logica.Excepciones.*;
 
-class Comprador {
+public class Comprador {
     private String sonido;
     private int vuelto;
     public Comprador(Moneda m, PRECIOS cualProducto, int precio, Expendedor exp) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException{
