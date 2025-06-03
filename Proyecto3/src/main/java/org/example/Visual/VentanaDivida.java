@@ -14,19 +14,18 @@ public class VentanaDivida extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
 
-        // Crear los dos paneles
         JPanel panelIzquierdo = new CompradorVisual();
         JPanel panelDerecho = new ExpendedorVisual();
 
-        // Crear el JSplitPane (división horizontal: izquierda-derecha)
+        // Esto divide la pantalla en 2
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelDerecho);
 
-        // Configurar proporción: 0.33 significa 33% izquierda, 67% derecha
+        // Proporción de division
         splitPane.setResizeWeight(.5);
 
-        // Opcionales: evita que el usuario mueva la división y quita la línea divisoria si quieres
-        splitPane.setDividerSize(4);       // grosor de la línea
-        splitPane.setEnabled(false);       // desactiva mover el divisor
+        //Linea divisora
+        splitPane.setDividerSize(4);
+        splitPane.setEnabled(false);
 
         // Usar BorderLayout para agregar el splitPane al centro
         setLayout(new BorderLayout());
