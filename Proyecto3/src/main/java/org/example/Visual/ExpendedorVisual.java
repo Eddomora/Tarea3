@@ -2,6 +2,7 @@ package org.example.Visual;
 
 import org.example.Logica.*;
 
+import javax.lang.model.util.ElementScanner6;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +23,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     static String super8String = "Super8";
 
     private JButton botonComprar;
-    private JButton botonReinicio;
+    private JButton botonRecogerProd;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
 
     private Moneda m = new Moneda1500(1);
@@ -31,7 +32,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     private JLabel[] labelStock = new JLabel[5]; //numero de productors
     private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
 
-
+    private String compra;
     JLabel productos;
 
     public ExpendedorVisual(){
@@ -74,7 +75,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
         productos = new JLabel(createImageIcon("/"
                 + cocaString
-                + ".gif"));
+                + ".png"));
 
 
         productos.setPreferredSize(new Dimension(277, 222));
@@ -103,10 +104,10 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         botonComprar = new JButton("COMPRAR");
         botonComprar.addActionListener(e -> realizarCompra());
 
-        botonReinicio = new JButton("REINICIO");
-        botonReinicio.addActionListener(e -> reinicioDinero());
+        botonRecogerProd = new JButton("RECOGER");
+        botonRecogerProd.addActionListener(e -> recogerProducto());
 
-        panelInferior.add(botonReinicio);
+        panelInferior.add(botonRecogerProd);
         panelInferior.add(botonComprar);
 
         add(panelEstado, BorderLayout.LINE_END);
@@ -121,7 +122,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         productos.setIcon(createImageIcon("/"
                 + e.getActionCommand()
-                + ".gif"));
+                + ".png"));
     }
 
     protected static ImageIcon createImageIcon(String path) {
@@ -155,7 +156,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
         try {
             Comprador c = new Comprador(m, tipo, precio, expendedor);
-            String producto = c.queCompraste();
+            compra = c.queCompraste();
             int vuelto = c.cuantoVuelto();
             dineroDisp = vuelto;
             labelDinero.setText("Dinero: $" + dineroDisp);
@@ -163,7 +164,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             actualizarStock();
 
             JOptionPane.showMessageDialog(this,
-                    "Compraste: " + producto +
+                    "Compraste: " + compra +
                             "\nVuelto: $" + vuelto);
 
         } catch (Exception e) {
@@ -173,9 +174,13 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     }
 
 
-    public void reinicioDinero(){
-        dineroDisp = m.getValor();
-        labelDinero.setText("DINERO: $" + dineroDisp);
+    public void recogerProducto(){
+        if (compra!= null) {
+            JOptionPane.showMessageDialog(this, "Recogiste: " + compra);
+            compra = null;
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay nada para recoger");
+        }
     }
 
     private void actualizarStock() {

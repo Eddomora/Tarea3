@@ -6,6 +6,6 @@ public class CocaCola extends Bebida{
     }
     @Override
     public String accion() {
-        return super.accion() + "cocacola";
+        return "Coca Cola";
     }
 }

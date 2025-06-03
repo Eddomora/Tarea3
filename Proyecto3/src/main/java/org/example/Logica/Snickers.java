@@ -7,6 +7,6 @@ public class Snickers extends Dulces{
 
     @Override
     public String accion() {
-        return super.accion() + "snickers";
+        return "Snicker";
     }
 }

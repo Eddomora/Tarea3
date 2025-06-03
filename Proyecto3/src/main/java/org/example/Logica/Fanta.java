@@ -6,7 +6,7 @@ public class Fanta extends Bebida{
     }
     @Override
     public String accion() {
-        return super.accion() + "fanta";
+        return "Fanta";
     }
 }
 
