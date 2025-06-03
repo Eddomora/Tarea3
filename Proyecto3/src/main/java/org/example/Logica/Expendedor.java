@@ -7,7 +7,8 @@ public class Expendedor {
     private Deposito<Bebida> fanta;
     private Deposito<Dulces> snickers;
     private Deposito<Dulces> super8;
-    private Deposito<Moneda> monVu;
+    private Deposito<Moneda> monedasAceptada;
+    private Deposito<Moneda> monedasVuelto;
     private Producto producto;
 
     /**
@@ -21,7 +22,9 @@ public class Expendedor {
         fanta = new Deposito<Bebida>();
         snickers = new Deposito<Dulces>();
         super8 = new Deposito<Dulces>();
-        monVu = new Deposito<Moneda>();
+
+        monedasAceptada = new Deposito<Moneda>();
+        monedasVuelto = new Deposito<>();
 
         for (int i = 0; i < cantidad; i++) {
 
@@ -55,12 +58,10 @@ public class Expendedor {
         if (moneda == null) {
             throw new PagoIncorrectoException("No ingresaste una moneda");
         }
-        monVu.addCosa(moneda);
-        int valorMoneda = moneda.getValor();
-        int vuelto_temporal = valorMoneda - precio;
 
+        int valorMoneda = moneda.getValor();
         if (valorMoneda < precio) {
-            monVu.getCosa();
+            monedasVuelto.addCosa(moneda);
             throw new PagoInsuficienteException("No te alcanza para comprar el producto");
         }
 
@@ -85,21 +86,33 @@ public class Expendedor {
             case PRECIOS.SUPER8:
                 producto = super8.getCosa();
                 break;
-
-            default:
-                monVu.getCosa();
-                throw new NoHayProductoException("Producto no disponible");
         }
+
         if(producto == null){
-            monVu.getCosa();
+            monedasVuelto.addCosa(moneda);
             throw new NoHayProductoException("No hay producto por retirar");
         }
-        else{
-            for (int i = 0; i < vuelto_temporal; i += 100) {
-                monVu.addCosa(new Moneda100(i+1));
-            }
+        monedasAceptada.addCosa(moneda);
+
+        int vuelto = valorMoneda - precio;
+        while (vuelto >= 1500) {
+            monedasVuelto.addCosa(new Moneda1500(1));
+            vuelto -= 1500;
+        }
+        while (vuelto >= 1000) {
+            monedasVuelto.addCosa(new Moneda1000(7));
+            vuelto -= 1000;
+        }
+        while (vuelto >= 500) {
+            monedasVuelto.addCosa(new Moneda500(19));
+            vuelto -= 500;
+        }
+        while (vuelto >= 100) {
+            monedasVuelto.addCosa(new Moneda100(23));
+            vuelto -= 100;
         }
     }
+
     //El metodo getProducto debes imaginarlo como meter la mano al deposito para sacar el producto comprado
     public Producto getProducto() {
         return producto;
@@ -111,7 +124,7 @@ public class Expendedor {
      * @return una {@code Moneda} de vuelto, o {@code null} si ya no quedan.
      */
     public Moneda getVuelto() {
-        return monVu.getCosa();
+        return monedasVuelto.getCosa();
     }
 
     public int getStock(PRECIOS tipo) {

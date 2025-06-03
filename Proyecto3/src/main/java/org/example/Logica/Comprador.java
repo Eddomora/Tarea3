@@ -7,31 +7,17 @@ public class Comprador {
     public Comprador(Moneda m, PRECIOS cualProducto, int precio, Expendedor exp) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException{
         this.sonido = null;
         this.vuelto = 0;
-        /**
-         * Crea un nuevo comprador que intenta comprar un producto del expendedor.
-         *
-         * @param m es la moneda insertada para comprar.
-         * @param cualProducto producto para elegir,
-         * @param precio precio del producto elegido.
-         * @param exp el expendedor donde se realiza la compra.
-         */
 
-        if (cualProducto == PRECIOS.COCACOLA ||cualProducto == PRECIOS.SPRITE ||cualProducto == PRECIOS.FANTA) {
-            Bebida compra = (Bebida) exp.comprarProducto(m, cualProducto, precio);
-            if (compra != null) {
-                this.sonido = compra.accion();
-            }
-        } else if (cualProducto == PRECIOS.SUPER8 || cualProducto == PRECIOS.SNICKERS) {
-            Dulces compra = (Dulces) exp.comprarProducto(m, cualProducto, precio);
-            if (compra != null) {
-                this.sonido = compra.accion();
-            }
+        exp.comprarProducto(m, cualProducto, precio);
+
+        Producto comprado = exp.getProducto();
+        if (comprado != null) {
+            this.sonido = comprado.accion();
         }
         //se obtiene el vuelto moneda a moneda hasta obtener el total.
-        while (true) {
-            Moneda aux = exp.getVuelto();
-            if (aux == null) break;
-            vuelto += aux.getValor();
+        Moneda moneda;
+        while ((moneda = exp.getVuelto()) != null) {
+            vuelto += moneda.getValor();
         }
     }
     /**
