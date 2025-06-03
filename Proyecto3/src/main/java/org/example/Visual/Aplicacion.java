@@ -2,9 +2,10 @@ package org.example.Visual;
 
 public class Aplicacion {
     private static Ventana v;
+    private static VentanaDivida v2;
     public static void main(String[] args) {
-        v = new Ventana();
-
+        //v = new Ventana();
+        v2 = new VentanaDivida();
 
     }
 }

@@ -18,7 +18,7 @@ public class Ventana extends JFrame {
         setVisible(true);
         //Menu_Expendedor me = new Menu_Expendedor();
         JComponent newContentPane = new Menu_Expendedor();
-        add(newContentPane, BorderLayout.CENTER);
+        add(newContentPane);
         newContentPane.setOpaque(true);
         setContentPane(newContentPane);
         pack();
