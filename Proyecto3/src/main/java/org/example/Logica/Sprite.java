@@ -6,7 +6,7 @@ public class Sprite extends Bebida{
     }
     @Override
     public String accion() {
-        return super.accion() + "sprite";
+        return "Sprite";
     }
 }
 
