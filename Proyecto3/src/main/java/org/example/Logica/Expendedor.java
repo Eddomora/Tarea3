@@ -8,6 +8,7 @@ public class Expendedor {
     private Deposito<Dulces> snickers;
     private Deposito<Dulces> super8;
     private Deposito<Moneda> monVu;
+    private Producto producto;
 
     /**
      * El constructor del expendedor llena los depósitos con una cantidad dada de cada producto.
@@ -50,64 +51,60 @@ public class Expendedor {
      * @return el producto comprado (bebida o dulce).
      */
 
-    public Producto comprarProducto(Moneda moneda, PRECIOS select, int precio) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
+    public void comprarProducto(Moneda moneda, PRECIOS select, int precio) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
         if (moneda == null) {
             throw new PagoIncorrectoException("No ingresaste una moneda");
         }
         monVu.addCosa(moneda);
         int valorMoneda = moneda.getValor();
-        int vuelto_temporal = moneda.getValor() - precio;
+        int vuelto_temporal = valorMoneda - precio;
 
         if (valorMoneda < precio) {
             monVu.getCosa();
             throw new PagoInsuficienteException("No te alcanza para comprar el producto");
         }
 
-        Bebida b = null;
-        Dulces d = null;
+        producto = null;
         switch (select) {
             case PRECIOS.COCACOLA:
-                b = coca.getCosa();
+                producto = coca.getCosa();
                 break;
 
             case PRECIOS.SPRITE:
-                b = sprite.getCosa();
+                producto = sprite.getCosa();
                 break;
 
             case PRECIOS.FANTA:
-                b = fanta.getCosa();
+                producto = fanta.getCosa();
                 break;
 
             case PRECIOS.SNICKERS:
-                d = snickers.getCosa();
+                producto = snickers.getCosa();
                 break;
 
             case PRECIOS.SUPER8:
-                d = super8.getCosa();
+                producto = super8.getCosa();
                 break;
 
             default:
                 monVu.getCosa();
-                throw new NoHayProductoException("Número del producto equivocado");
+                throw new NoHayProductoException("Producto no disponible");
         }
-        if((b == null) && (d == null)){
+        if(producto == null){
             monVu.getCosa();
-            throw new NoHayProductoException("No queda producto en el depósito");
+            throw new NoHayProductoException("No hay producto por retirar");
         }
         else{
             for (int i = 0; i < vuelto_temporal; i += 100) {
                 monVu.addCosa(new Moneda100(i+1));
             }
-            if (b == null){
-                monVu.getCosa();
-                return d;
-            }
-            else{
-                monVu.getCosa();
-                return b;
-            }
         }
     }
+    //El metodo getProducto debes imaginarlo como meter la mano al deposito para sacar el producto comprado
+    public Producto getProducto() {
+        return producto;
+    }
+
     /**
      * Entrega una moneda del depósito de vuelto.
      *
