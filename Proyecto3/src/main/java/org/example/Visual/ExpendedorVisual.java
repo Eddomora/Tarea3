@@ -190,4 +190,9 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             labelStock[i].setText(producto.name() +": "+ stock + " unidades.");
         }
     }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.GRAY);
+        g.fillRect(50, 50, 700, 600);
+    }
 }

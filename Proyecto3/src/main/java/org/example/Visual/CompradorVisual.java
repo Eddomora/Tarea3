@@ -5,11 +5,13 @@ import java.awt.*;
 
 public class CompradorVisual extends JPanel {
     private Image fondo;
+    private JLabel contadorDinero;
 
     public CompradorVisual() {
         super(new BorderLayout());
 
-        fondo = new ImageIcon(getClass().getResource("/monedero.png")).getImage();
+        //fondo = new ImageIcon(getClass().getResource("/monedero.png")).getImage();
+        contadorDinero = new JLabel("Dinero: $0");
 
         setBackground(Color.LIGHT_GRAY);
 
@@ -17,9 +19,9 @@ public class CompradorVisual extends JPanel {
         panelSuperior.add(new JLabel("Monedero"));
 
         JPanel panelInferior = new JPanel();
-        panelInferior.add(new JLabel("Elige que monedas sacar"));
-
-        PanelMonedas opciones = new PanelMonedas();
+        //panelInferior.add(new JLabel("Elige que monedas sacar"));
+        panelInferior.add(contadorDinero, BorderLayout.EAST);
+        PanelMonedas opciones = new PanelMonedas(contadorDinero);
 
         opciones.setOpaque(false);
 
