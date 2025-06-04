@@ -1,7 +1,7 @@
 package org.example.Visual;
 
 import org.example.Logica.*;
-
+import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,12 +11,16 @@ public class PanelMonedas extends JPanel {
     private JButton boton500;
     private JButton boton100;
 
+    private Random numero;
+    private int serie;
     private JLabel contadorDinero;
 
     Moneda moneda;
     int totalDinero;
     public PanelMonedas(JLabel contador) {
         super(new FlowLayout());
+
+        numero = new Random();
 
         this.contadorDinero = contador;
 
@@ -36,10 +40,11 @@ public class PanelMonedas extends JPanel {
         boton500.setPreferredSize(tamanoBoton);
         boton100.setPreferredSize(tamanoBoton);
 
-        boton1500.addActionListener(e -> agregarDinero(new Moneda1500(3)));
-        boton1000.addActionListener(e -> agregarDinero(new Moneda1000(91)));
-        boton500.addActionListener(e -> agregarDinero(new Moneda500(23)));
-        boton100.addActionListener(e -> agregarDinero(new Moneda100(10)));
+        serie = numero.nextInt(1000);
+        boton1500.addActionListener(e -> agregarDinero(new Moneda1500(serie)));
+        boton1000.addActionListener(e -> agregarDinero(new Moneda1000(serie)));
+        boton500.addActionListener(e -> agregarDinero(new Moneda500(serie)));
+        boton100.addActionListener(e -> agregarDinero(new Moneda100(serie)));
 
         Opciones.add(boton1500);
         Opciones.add(boton1000);
@@ -51,5 +56,13 @@ public class PanelMonedas extends JPanel {
     private void agregarDinero(Moneda m) {
         totalDinero += m.getValor();
         contadorDinero.setText("Dinero: $" + totalDinero);
+
+        int nuevo = numero.nextInt(1000);
+        if (nuevo == serie){
+            nuevo = numero.nextInt(1000);
+        } else {
+            serie = nuevo;
+        }
+
     }
 }
