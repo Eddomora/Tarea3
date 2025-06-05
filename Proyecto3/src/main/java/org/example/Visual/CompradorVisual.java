@@ -1,27 +1,34 @@
 package org.example.Visual;
 
+import org.example.Logica.Expendedor;
+import org.example.Logica.Moneda;
 import javax.swing.*;
 import java.awt.*;
 
 public class CompradorVisual extends JPanel {
     private Image fondo;
     private JLabel contadorDinero;
+    private JPanel panelSuperior;
+    private JPanel panelInferior;
+    private PanelMonedas opciones;
 
     public CompradorVisual() {
         super(new BorderLayout());
+        fondo = new ImageIcon(getClass().getResource("/monedero.png")).getImage();
 
-        //fondo = new ImageIcon(getClass().getResource("/monedero.png")).getImage();
         contadorDinero = new JLabel("Dinero: $0");
 
         setBackground(Color.LIGHT_GRAY);
 
-        JPanel panelSuperior = new JPanel();
+        panelSuperior = new JPanel();
         panelSuperior.add(new JLabel("Monedero"));
 
-        JPanel panelInferior = new JPanel();
+
+        panelInferior = new JPanel();
         //panelInferior.add(new JLabel("Elige que monedas sacar"));
         panelInferior.add(contadorDinero, BorderLayout.EAST);
-        PanelMonedas opciones = new PanelMonedas(contadorDinero);
+        //panelInferior.add();
+        opciones = new PanelMonedas(contadorDinero);
 
         opciones.setOpaque(false);
 
@@ -35,5 +42,10 @@ public class CompradorVisual extends JPanel {
         if (fondo != null) {
             g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         }
+    }
+
+    public static void ingresoMoneda(Moneda m){
+        ExpendedorVisual.m = m;
+        ExpendedorVisual.dineroDisp = m.getValor();
     }
 }

@@ -54,8 +54,9 @@ public class PanelMonedas extends JPanel {
         add(Opciones);
     }
     private void agregarDinero(Moneda m) {
-        totalDinero += m.getValor();
+        totalDinero = m.getValor();
         contadorDinero.setText("Dinero: $" + totalDinero);
+        CompradorVisual.ingresoMoneda(m);
 
         int nuevo = numero.nextInt(1000);
         if (nuevo == serie){
