@@ -25,9 +25,10 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     private JButton botonComprar;
     private JButton botonRecogerProd;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
+    private int vuelto;
 
-    private Moneda m = new Moneda1500(1);
-    private int dineroDisp = m.getValor();
+    public static Moneda m;
+    public static int dineroDisp;
     private JLabel labelDinero;
     private JLabel[] labelStock = new JLabel[5]; //numero de productors
     private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
@@ -92,6 +93,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         panelEstado.setLayout(new BoxLayout(panelEstado, BoxLayout.Y_AXIS));
         labelDinero = new JLabel("DINERO: $" + dineroDisp);
         panelEstado.add(labelDinero);
+
         //labels para stock de cada producto
         for(int i = 0; i<labelStock.length; i++) {
             labelStock[i] = new JLabel(nombreProductos[i] + ": 10 unidades");
@@ -155,17 +157,21 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             precio = PRECIOS.SUPER8.getPrecio();
         }
         try {
-            Comprador c = new Comprador(m, tipo, precio, expendedor);
-            compra = c.queCompraste();
-            int vuelto = c.cuantoVuelto();
-            dineroDisp = vuelto;
-            labelDinero.setText("Dinero: $" + dineroDisp);
+            if (compra == null) {
+                Comprador c = new Comprador(m, tipo, precio, expendedor);
+                compra = c.queCompraste();
+                vuelto = c.cuantoVuelto();
+                labelDinero.setText("Dinero: $0");
 
-            actualizarStock();
+                actualizarStock();
 
-            JOptionPane.showMessageDialog(this,
-                    "Compraste: " + compra +
-                            "\nVuelto: $" + vuelto);
+                JOptionPane.showMessageDialog(this,
+                        "Compraste: " + compra +
+                                "\nVuelto: $" + vuelto);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No puedes comprar, hay un producto por recoger");
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
@@ -176,7 +182,8 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     public void recogerProducto(){
         if (compra!= null) {
-            JOptionPane.showMessageDialog(this, "Recogiste: " + compra);
+            JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu vuelto: " + vuelto);
+
             compra = null;
         } else {
             JOptionPane.showMessageDialog(this, "No hay nada para recoger");

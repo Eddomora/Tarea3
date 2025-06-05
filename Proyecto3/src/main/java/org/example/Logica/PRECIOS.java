@@ -5,10 +5,10 @@ package org.example.Logica;
  */
 
 public enum PRECIOS {
-    COCACOLA(1200),
-    SPRITE(1000),
-    FANTA(1100),
-    SNICKERS(1400),
+    COCACOLA(900),
+    SPRITE(800),
+    FANTA(700),
+    SNICKERS(1200),
     SUPER8(500);
     private final int precio;
     PRECIOS(int precio) {
