@@ -3,10 +3,13 @@ import org.example.Logica.Excepciones.*;
 
 public class Comprador {
     private String sonido;
-    private int vuelto;
+
+    //volver vuelto un deposito de monedas
+
+    private Deposito<Moneda> vuelto;
     public Comprador(Moneda m, PRECIOS cualProducto, int precio, Expendedor exp) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException{
         this.sonido = null;
-        this.vuelto = 0;
+        this.vuelto = null;
 
         exp.comprarProducto(m, cualProducto, precio);
 
@@ -17,7 +20,7 @@ public class Comprador {
         //se obtiene el vuelto moneda a moneda hasta obtener el total.
         Moneda moneda;
         while ((moneda = exp.getVuelto()) != null) {
-            vuelto += moneda.getValor();
+            vuelto.addCosa(moneda);
         }
     }
     /**
@@ -33,7 +36,7 @@ public class Comprador {
      *
      * @return el valor del vuelto.
      */
-    public int cuantoVuelto() {
+    public Deposito<Moneda> cuantoVuelto() {
         return vuelto;
     }
 

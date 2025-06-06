@@ -2,7 +2,6 @@ package org.example.Visual;
 
 import org.example.Logica.*;
 
-import javax.lang.model.util.ElementScanner6;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +24,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     private JButton botonComprar;
     private JButton botonRecogerProd;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
-    private int vuelto;
+    private Deposito<Moneda> dep_vuelto;
 
     public static Moneda m;
     public static int dineroDisp;
@@ -160,14 +159,14 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             if (compra == null) {
                 Comprador c = new Comprador(m, tipo, precio, expendedor);
                 compra = c.queCompraste();
-                vuelto = c.cuantoVuelto();
+                dep_vuelto = c.cuantoVuelto();
                 labelDinero.setText("Dinero: $0");
-
+                depoDineroDisp(dep_vuelto);
                 actualizarStock();
 
                 JOptionPane.showMessageDialog(this,
                         "Compraste: " + compra +
-                                "\nVuelto: $" + vuelto);
+                                "\nVuelto: $" + dineroDisp);
             } else {
                 JOptionPane.showMessageDialog(this,
                         "No puedes comprar, hay un producto por recoger");
@@ -182,7 +181,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     public void recogerProducto(){
         if (compra!= null) {
-            JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu vuelto: " + vuelto);
+            JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu dep_vuelto: " + dineroDisp);
 
             compra = null;
         } else {
@@ -201,5 +200,13 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.setColor(Color.GRAY);
         g.fillRect(50, 50, 700, 600);
+    }
+
+    public void depoDineroDisp(Deposito<Moneda> dep){
+        Moneda m;
+        for (int i = 0; i < dep.size(); i++) {
+            m = dep.getCosa();
+            dineroDisp += m.getValor();
+        }
     }
 }
