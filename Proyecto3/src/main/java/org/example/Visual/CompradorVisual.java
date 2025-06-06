@@ -45,7 +45,8 @@ public class CompradorVisual extends JPanel {
     }
 
     public static void ingresoMoneda(Moneda m){
-        ExpendedorVisual.m = m;
-        ExpendedorVisual.dineroDisp = m.getValor();
+        ExpendedorVisual.dep_vuelto.addCosa(m);
+        ExpendedorVisual.dineroDisp += m.getValor();
+        ExpendedorVisual.actualizarDinero();
     }
 }

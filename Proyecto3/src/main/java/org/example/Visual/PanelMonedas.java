@@ -54,10 +54,13 @@ public class PanelMonedas extends JPanel {
         add(Opciones);
     }
     private void agregarDinero(Moneda m) {
-        totalDinero = m.getValor();
-        contadorDinero.setText("Dinero: $" + totalDinero);
-        CompradorVisual.ingresoMoneda(m);
-
+        try {
+            totalDinero += m.getValor();
+            contadorDinero.setText("Dinero: $" + totalDinero);
+            CompradorVisual.ingresoMoneda(m);
+        } catch (NullPointerException e) {
+            e.printStackTrace();  // Muestra la línea exacta del error
+        }
         int nuevo = numero.nextInt(1000);
         if (nuevo == serie){
             nuevo = numero.nextInt(1000);
