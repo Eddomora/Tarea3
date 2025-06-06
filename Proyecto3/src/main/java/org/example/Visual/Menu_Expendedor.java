@@ -256,15 +256,13 @@ public class Menu_Expendedor extends JPanel implements ActionListener {
         try {
             Comprador c = new Comprador(m, tipo, precio, expendedor);
             String producto = c.queCompraste();
-            int vuelto = c.cuantoVuelto();
-            dineroDisp = vuelto;
+            //int vuelto = c.cuantoVuelto();
+            //dineroDisp = vuelto;
             labelDinero.setText("Dinero: $" + dineroDisp);
 
             actualizarStock();
 
-            JOptionPane.showMessageDialog(this,
-                    "Compraste: " + producto +
-                            "\nVuelto: $" + vuelto);
+            //JOptionPane.showMessageDialog(this,"Compraste: " + producto +"\nVuelto: $" + vuelto);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,

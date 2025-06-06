@@ -1,5 +1,7 @@
 package org.example.Logica;
 import org.example.Logica.Excepciones.*;
+import java.util.Random;
+
 
 public class Expendedor {
     private Deposito<Bebida> coca;
@@ -10,6 +12,8 @@ public class Expendedor {
     private Deposito<Moneda> monedasAceptada;
     private Deposito<Moneda> monedasVuelto;
     private Producto producto;
+    private Random random;
+
 
     /**
      * El constructor del expendedor llena los depósitos con una cantidad dada de cada producto.
@@ -94,22 +98,53 @@ public class Expendedor {
         }
         monedasAceptada.addCosa(moneda);
 
+        //añadir el vuelto como un deposito
+        random = new Random();
+        int serie = random.nextInt(200);
         int vuelto = valorMoneda - precio;
         while (vuelto >= 1500) {
-            monedasVuelto.addCosa(new Moneda1500(1));
+            monedasVuelto.addCosa(new Moneda1500(serie));
             vuelto -= 1500;
+
+            int nuevo = random.nextInt(400);
+            if (nuevo == serie){
+                nuevo = random.nextInt(400);
+            } else {
+                serie = nuevo;
+            }
         }
         while (vuelto >= 1000) {
-            monedasVuelto.addCosa(new Moneda1000(7));
+            monedasVuelto.addCosa(new Moneda1000(serie));
             vuelto -= 1000;
+
+            int nuevo = random.nextInt(400);
+            if (nuevo == serie){
+                nuevo = random.nextInt(400);
+            } else {
+                serie = nuevo;
+            }
         }
         while (vuelto >= 500) {
-            monedasVuelto.addCosa(new Moneda500(19));
+            monedasVuelto.addCosa(new Moneda500(serie));
             vuelto -= 500;
+
+            int nuevo = random.nextInt(400);
+            if (nuevo == serie){
+                nuevo = random.nextInt(400);
+            } else {
+                serie = nuevo;
+            }
         }
         while (vuelto >= 100) {
-            monedasVuelto.addCosa(new Moneda100(23));
+            monedasVuelto.addCosa(new Moneda100(serie));
             vuelto -= 100;
+
+            int nuevo = random.nextInt(400);
+            if (nuevo == serie){
+                nuevo = random.nextInt(400);
+            } else {
+                serie = nuevo;
+            }
         }
     }
 
