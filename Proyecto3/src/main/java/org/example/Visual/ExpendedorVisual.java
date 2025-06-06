@@ -73,7 +73,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         snickerButton.addActionListener(this);
         super8Button.addActionListener(this);
 
-        productos = new JLabel(createImageIcon("/"
+        productos = new JLabel(imagenProducto("/"
                 + cocaString
                 + ".png"));
 
@@ -121,13 +121,13 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        productos.setIcon(createImageIcon("/"
+        productos.setIcon(imagenProducto("/"
                 + e.getActionCommand()
                 + ".png"));
     }
 
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = Menu_Expendedor.class.getResource(path);
+    protected static ImageIcon imagenProducto(String path) {
+        java.net.URL imgURL = ExpendedorVisual.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
