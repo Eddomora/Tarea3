@@ -13,10 +13,11 @@ public class PanelMonedas extends JPanel {
 
     private Random numero;
     private int serie;
-    private JLabel contadorDinero;
+    private static JLabel contadorDinero;
 
     Moneda moneda;
-    int totalDinero;
+    public static int totalDinero;
+
     public PanelMonedas(JLabel contador) {
         super(new FlowLayout());
 
@@ -68,5 +69,8 @@ public class PanelMonedas extends JPanel {
             serie = nuevo;
         }
 
+    }
+    public static void actualizarDinero() {
+        contadorDinero.setText("Dinero: " + totalDinero);
     }
 }

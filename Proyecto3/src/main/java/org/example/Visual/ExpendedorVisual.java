@@ -168,6 +168,9 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(this,
                         "Compraste: " + compra +
                                 "\nVuelto: $" + dineroDisp);
+                PanelMonedas.totalDinero = 0;
+                PanelMonedas.actualizarDinero();
+
             } else {
                 JOptionPane.showMessageDialog(this,
                         "No puedes comprar, hay un producto por recoger");
@@ -183,6 +186,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     public void recogerProducto(){
         if (compra!= null) {
             JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu vuelto: " + dineroDisp);
+            dineroDisp = 0;
 
             compra = null;
         } else {
