@@ -24,11 +24,11 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     private JButton botonComprar;
     private JButton botonRecogerProd;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
-    private Deposito<Moneda> dep_vuelto;
 
+    public static Deposito<Moneda> dep_vuelto;
     public static Moneda m;
     public static int dineroDisp;
-    private JLabel labelDinero;
+    private static JLabel labelDinero;
     private JLabel[] labelStock = new JLabel[5]; //numero de productors
     private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
 
@@ -38,6 +38,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     public ExpendedorVisual(){
         super(new BorderLayout());
         //setBackground(Color.ORANGE);
+        dep_vuelto = new Deposito<Moneda>();
 
         cocaButton = new JRadioButton(cocaString);
         cocaButton.setMnemonic(KeyEvent.VK_B);
@@ -157,7 +158,8 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
         try {
             if (compra == null) {
-                Comprador c = new Comprador(m, tipo, precio, expendedor);
+                Comprador c=null;
+                //Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor); //arreglar constructor comprador
                 compra = c.queCompraste();
                 dep_vuelto = c.cuantoVuelto();
                 labelDinero.setText("Dinero: $0");
@@ -208,5 +210,9 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             m = dep.getCosa();
             dineroDisp += m.getValor();
         }
+    }
+
+    public static void actualizarDinero() {
+        labelDinero.setText("Dinero: " + dineroDisp);
     }
 }
