@@ -158,8 +158,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
         try {
             if (compra == null) {
-                Comprador c=null;
-                //Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor); //arreglar constructor comprador
+                Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor);
                 compra = c.queCompraste();
                 dep_vuelto = c.cuantoVuelto();
                 labelDinero.setText("Dinero: $0");
@@ -183,7 +182,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     public void recogerProducto(){
         if (compra!= null) {
-            JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu dep_vuelto: " + dineroDisp);
+            JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu vuelto: " + dineroDisp);
 
             compra = null;
         } else {
@@ -206,6 +205,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     public void depoDineroDisp(Deposito<Moneda> dep){
         Moneda m;
+        dineroDisp = 0;
         for (int i = 0; i < dep.size(); i++) {
             m = dep.getCosa();
             dineroDisp += m.getValor();

@@ -52,20 +52,26 @@ public class Expendedor {
      * Recibe una moneda y hace una compra según el producto seleccionado.
      * Valida si hay producto, si la moneda es válida y si el pago es suficiente.
      *
-     * @param moneda la moneda ingresada para pagar.
+     * @param monedero las monedas ingresada para pagar.
      * @param select el número del producto seleccionado.
      * @param precio el precio del producto seleccionado.
      * @return el producto comprado (bebida o dulce).
      */
 
-    public void comprarProducto(Moneda moneda, PRECIOS select, int precio) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
-        if (moneda == null) {
+    public void comprarProducto(Deposito<Moneda> monedero, PRECIOS select, int precio) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
+        if (monedero.size() == 0) {
             throw new PagoIncorrectoException("No ingresaste una moneda");
         }
-
-        int valorMoneda = moneda.getValor();
-        if (valorMoneda < precio) {
-            monedasVuelto.addCosa(moneda);
+        int valorMonedas=0;
+        for (int i = 0; i < monedero.size(); i++) {
+            valorMonedas += monedero.getCosa().getValor();
+        }
+        if (valorMonedas < precio) {
+            Moneda m;
+            for (int i = 0; i < monedero.size(); i++) {
+                m = monedero.getCosa();
+                monedasVuelto.addCosa(m);
+            }
             throw new PagoInsuficienteException("No te alcanza para comprar el producto");
         }
 
@@ -93,15 +99,23 @@ public class Expendedor {
         }
 
         if(producto == null){
-            monedasVuelto.addCosa(moneda);
+            Moneda m;
+            for (int i = 0; i < monedero.size(); i++) {
+                m = monedero.getCosa();
+                monedasVuelto.addCosa(m);
+            }
             throw new NoHayProductoException("No hay producto por retirar");
         }
-        monedasAceptada.addCosa(moneda);
+        Moneda m;
+        for (int i = 0; i < monedero.size(); i++) {
+            m = monedero.getCosa();
+            monedasAceptada.addCosa(m);
+        }
 
         //añadir el vuelto como un deposito
         random = new Random();
         int serie = random.nextInt(200);
-        int vuelto = valorMoneda - precio;
+        int vuelto = valorMonedas - precio;
         while (vuelto >= 1500) {
             monedasVuelto.addCosa(new Moneda1500(serie));
             vuelto -= 1500;
