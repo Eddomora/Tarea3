@@ -113,6 +113,10 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         botonRecogerProd = new JButton("RECOGER");
         botonRecogerProd.addActionListener(e -> recogerProducto());
 
+        JButton botonSacarVuelto = new JButton("VUELTO");
+        botonSacarVuelto.addActionListener(e -> sacarVuelto());
+
+        panelInferior.add(botonSacarVuelto);
         panelInferior.add(botonRecogerProd);
         panelInferior.add(botonComprar);
 
@@ -165,8 +169,8 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor);
                 compra = c.queCompraste();
                 dep_vuelto = c.cuantoVuelto();
-                labelDinero.setText("DINERO: $0");
-                depoDineroDisp(dep_vuelto);
+                //labelDinero.setText("DINERO: $0");
+                //depoDineroDisp(dep_vuelto);
                 //actualizarStock();
 
                 JOptionPane.showMessageDialog(this,
@@ -190,9 +194,9 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     public void recogerProducto(){
         if (compra!= null) {
             JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nToma tu vuelto: " + dineroDisp);
-            dineroDisp = 0;
-
+            //dineroDisp = 0;
             compra = null;
+
         } else {
             JOptionPane.showMessageDialog(this, "No hay nada para recoger");
         }
@@ -228,6 +232,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
         while (deposito.size() > 0) {
             Moneda m = deposito.getCosa();
+            //CompradorVisual.ingresoMoneda(m);
             dep_vuelto.addCosa(m);
             dineroDisp += m.getValor();
         }
@@ -235,6 +240,22 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         actualizarDinero();
         PanelMonedas.totalDinero = 0;
         PanelMonedas.actualizarDinero();
+    }
+
+    private void sacarVuelto() {
+        if (dep_vuelto.size()==0) {
+            JOptionPane.showMessageDialog(this, "No hay vuelto por retirar");
+        }
+        while (dep_vuelto.size() > 0) {
+            Moneda m = dep_vuelto.getCosa();
+            CompradorVisual.depositoComprador.addCosa(m);
+            PanelMonedas.totalDinero += m.getValor();
+        }
+        dineroDisp = 0;
+        actualizarDinero();
+        PanelMonedas.actualizarDinero();
+
+        JOptionPane.showMessageDialog(this, "Vuelto retirado con éxito.");
     }
 
     public static void actualizarDinero() {

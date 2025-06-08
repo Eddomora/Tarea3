@@ -13,10 +13,11 @@ public class CompradorVisual extends JPanel {
     private JPanel panelInferior;
     private PanelMonedas opciones;
 
-    public static Deposito<Moneda> depositoComprador = new Deposito<>();
+    public static Deposito<Moneda> depositoComprador;
 
     public CompradorVisual() {
         super(new BorderLayout());
+        depositoComprador = new Deposito<Moneda>();
         fondo = new ImageIcon(getClass().getResource("/monedero.png")).getImage();
 
         contadorDinero = new JLabel("Dinero: $0");
