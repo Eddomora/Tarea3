@@ -95,6 +95,10 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         labelDinero = new JLabel("DINERO: $" + dineroDisp);
         panelEstado.add(labelDinero);
 
+        JButton botonTransferir = new JButton("INGRESAR MONEDA");
+        botonTransferir.addActionListener(e -> transferirMonedas());
+        panelEstado.add(botonTransferir);
+
         //labels para stock de cada producto
        /*for(int i = 0; i<labelStock.length; i++) {
             labelStock[i] = new JLabel(nombreProductos[i] + ": 10 unidades");
