@@ -1,5 +1,6 @@
 package org.example.Visual;
 
+import org.example.Logica.Deposito;
 import org.example.Logica.Expendedor;
 import org.example.Logica.Moneda;
 import javax.swing.*;
@@ -11,6 +12,8 @@ public class CompradorVisual extends JPanel {
     private JPanel panelSuperior;
     private JPanel panelInferior;
     private PanelMonedas opciones;
+
+    public static Deposito<Moneda> depositoComprador = new Deposito<>();
 
     public CompradorVisual() {
         super(new BorderLayout());
@@ -46,7 +49,7 @@ public class CompradorVisual extends JPanel {
 
     public static void ingresoMoneda(Moneda m){
         ExpendedorVisual.dep_vuelto.addCosa(m);
-        ExpendedorVisual.dineroDisp += m.getValor();
+        //ExpendedorVisual.dineroDisp += m.getValor();
         ExpendedorVisual.actualizarDinero();
     }
 }
