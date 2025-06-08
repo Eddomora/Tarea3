@@ -59,7 +59,7 @@ public class PanelMonedas extends JPanel {
             totalDinero += m.getValor();
             CompradorVisual.depositoComprador.addCosa(m);
             contadorDinero.setText("Dinero: $" + totalDinero);
-            CompradorVisual.ingresoMoneda(m);
+            //CompradorVisual.ingresoMoneda(m);
         } catch (NullPointerException e) {
             e.printStackTrace();  // Muestra la línea exacta del error
         }
@@ -69,7 +69,6 @@ public class PanelMonedas extends JPanel {
         } else {
             serie = nuevo;
         }
-
     }
     public static void actualizarDinero() {
         contadorDinero.setText("DINERO: $" + totalDinero);
