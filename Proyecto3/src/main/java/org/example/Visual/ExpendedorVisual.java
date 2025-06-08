@@ -23,14 +23,15 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     private JButton botonComprar;
     private JButton botonRecogerProd;
+    private JButton botonIngresar;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
 
     public static Deposito<Moneda> dep_vuelto;
     public static Moneda m;
     public static int dineroDisp;
     private static JLabel labelDinero;
-    private JLabel[] labelStock = new JLabel[5]; //numero de productors
-    private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
+    //private JLabel[] labelStock = new JLabel[5]; //numero de productors
+    //private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
 
     private String compra;
     JLabel productos;
@@ -95,13 +96,12 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         panelEstado.add(labelDinero);
 
         //labels para stock de cada producto
-        for(int i = 0; i<labelStock.length; i++) {
+       /*for(int i = 0; i<labelStock.length; i++) {
             labelStock[i] = new JLabel(nombreProductos[i] + ": 10 unidades");
             panelEstado.add(labelStock[i]);
-        }
+        } */
 
         JPanel panelInferior = new JPanel();
-
 
         botonComprar = new JButton("COMPRAR");
         botonComprar.addActionListener(e -> realizarCompra());
@@ -161,17 +161,17 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor);
                 compra = c.queCompraste();
                 dep_vuelto = c.cuantoVuelto();
-                labelDinero.setText("Dinero: $0");
+                labelDinero.setText("DINERO: $0");
                 depoDineroDisp(dep_vuelto);
-                actualizarStock();
+                //actualizarStock();
 
                 JOptionPane.showMessageDialog(this,
                         "Compraste: " + compra +
                                 "\nVuelto: $" + dineroDisp);
                 PanelMonedas.totalDinero = 0;
                 PanelMonedas.actualizarDinero();
-
-            } else {
+            }
+            else {
                 JOptionPane.showMessageDialog(this,
                         "No puedes comprar, hay un producto por recoger");
             }
@@ -194,13 +194,13 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
     }
 
-    private void actualizarStock() {
+   /* private void actualizarStock() {
         for (int i = 0; i < PRECIOS.values().length; i++) {
             PRECIOS producto = PRECIOS.values()[i];
             int stock = expendedor.getStock(producto);
             labelStock[i].setText(producto.name() +": "+ stock + " unidades.");
         }
-    }
+    } */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.GRAY);
@@ -216,7 +216,24 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
     }
 
+    private void transferirMonedas() {
+        Deposito<Moneda> deposito = CompradorVisual.depositoComprador;
+        if(deposito.size() == 0) {
+            JOptionPane.showMessageDialog(this, "Primero saca alguna moneda.");
+            return;
+        }
+        while (deposito.size() > 0) {
+            Moneda m = deposito.getCosa();
+            dep_vuelto.addCosa(m);
+            dineroDisp += m.getValor();
+        }
+
+        actualizarDinero();
+        PanelMonedas.totalDinero = 0;
+        PanelMonedas.actualizarDinero();
+    }
+
     public static void actualizarDinero() {
-        labelDinero.setText("Dinero: " + dineroDisp);
+        labelDinero.setText("DINERO: $" + dineroDisp);
     }
 }

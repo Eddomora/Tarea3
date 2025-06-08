@@ -57,6 +57,7 @@ public class PanelMonedas extends JPanel {
     private void agregarDinero(Moneda m) {
         try {
             totalDinero += m.getValor();
+            CompradorVisual.depositoComprador.addCosa(m);
             contadorDinero.setText("Dinero: $" + totalDinero);
             CompradorVisual.ingresoMoneda(m);
         } catch (NullPointerException e) {
@@ -71,6 +72,6 @@ public class PanelMonedas extends JPanel {
 
     }
     public static void actualizarDinero() {
-        contadorDinero.setText("Dinero: " + totalDinero);
+        contadorDinero.setText("DINERO: $" + totalDinero);
     }
 }
