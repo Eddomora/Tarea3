@@ -49,7 +49,6 @@ import java.awt.*;
         boton500.setPreferredSize(tamanoBoton);
         boton100.setPreferredSize(tamanoBoton);
 
-        serie = numero.nextInt(1000);
         boton1500.addActionListener(e -> agregarDinero(new Moneda1500(serie)));
         boton1000.addActionListener(e -> agregarDinero(new Moneda1000(serie)));
         boton500.addActionListener(e -> agregarDinero(new Moneda500(serie)));
