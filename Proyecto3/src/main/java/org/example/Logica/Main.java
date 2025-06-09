@@ -14,7 +14,19 @@ import java.util.List;
  * @author Ignacio Soto
  */
  public class Main {
-    public static void main(String[] args){
-        Ventana v = new Ventana();
+    public static void main(String[] args) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+        Moneda m1 = new Moneda1500(1);
+        Moneda m2 = new Moneda1500(1);
+        Moneda m3 = new Moneda1500(1);
+
+        Deposito<Moneda> dm = new Deposito<>();
+        dm.addCosa(m1);
+        dm.addCosa(m2);
+        dm.addCosa(m3);
+
+        Expendedor e = new Expendedor(10);
+
+        Comprador c = new Comprador(dm, PRECIOS.COCACOLA, PRECIOS.COCACOLA.getPrecio(), e);
+        System.out.print(c.cuantoVuelto().calcularTotalValor());
     }
 }

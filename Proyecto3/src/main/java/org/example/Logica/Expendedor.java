@@ -140,6 +140,9 @@ public class Expendedor {
 
             serie++;
         }
+        if(vuelto != 0){
+            System.out.print("mal");
+        }
     }
 
     //El metodo getProducto debes imaginarlo como meter la mano al deposito para sacar el producto comprado

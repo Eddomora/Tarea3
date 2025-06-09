@@ -8,8 +8,7 @@ public class Ventana extends JFrame {
     public static final int ALTO = 800;
     public Ventana instancia;
 
-    public Ventana() {
-        setTitle("The Expendedor");
+    public Ventana() {        setTitle("The Expendedor");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Se cierra al apretar x
         setMinimumSize(new Dimension(1014,816));
         setSize(1014,816); //el mismo que minimunSize

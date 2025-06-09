@@ -2,6 +2,12 @@ package org.example.Visual;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase que representa un panel con imagen de fondo personalizada.
+ * Extiende JPanel para proporcionar la funcionalidad de mostrar una imagen
+ * como fondo que se ajusta automáticamente al tamaño del panel.
+ */
+
 public class Fondos extends JPanel {
     private Image imagenFondo;
 
