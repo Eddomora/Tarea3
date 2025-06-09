@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaDivida extends JFrame {
-    public Ventana instancia;
 
     public VentanaDivida() {
         setTitle("The Experience Expendedor");

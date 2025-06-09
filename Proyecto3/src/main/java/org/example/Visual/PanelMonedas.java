@@ -5,7 +5,15 @@ import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelMonedas extends JPanel {
+/**
+ * Clase que representa un panel con botones para insertar monedas en una máquina expendedora.
+ * Proporciona una interfaz gráfica con cuatro botones que permiten al usuario seleccionar
+ * diferentes denominaciones de monedas (1500, 1000, 500, 100) y las añade al depósito
+ * del comprador actualizando el contador de dinero disponible.
+ * @Author Ignacio Soto
+ */
+
+ public class PanelMonedas extends JPanel {
     private JButton boton1500;
     private JButton boton1000;
     private JButton boton500;
@@ -54,6 +62,19 @@ public class PanelMonedas extends JPanel {
 
         add(Opciones);
     }
+    /**
+     * Método privado que añade una moneda al depósito del comprador y actualiza el contador.
+     *
+     * Este método realiza las siguientes operaciones:</p>
+     *
+     * Suma el valor de la moneda al dinero total
+     * Añade la moneda al depósito del comprador
+     * Actualiza la etiqueta del contador de dinero
+     * Incrementa el número de serie para la próxima moneda
+     *
+     * @param m La moneda a añadir al depósito
+     * @throws NullPointerException si ocurre un error de referencia nula durante la operación
+     */
     private void agregarDinero(Moneda m) {
         try {
             totalDinero += m.getValor();
