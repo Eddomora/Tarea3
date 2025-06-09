@@ -9,6 +9,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 
+/**
+ * Clase principal que representa la interfaz visual de la máquina expendedora.
+ * Extiende JPanel e implementa ActionListener para manejar las interacciones del usuario.
+ *
+ * <p>Esta clase gestiona:</p>
+ *
+ *   La selección de productos mediante JRadioButton
+ *   La visualización de productos con imágenes
+ *   El manejo del dinero disponible (de monedero y depósito del expendedor)
+ *   Las operaciones de compra y recogida de productos
+ *   La transferencia de monedas entre depósitos
+ *
+ * @author Ignacio Soto
+ */
+
 public class ExpendedorVisual extends JPanel implements ActionListener {
     private JRadioButton cocaButton;
     private JRadioButton fantaButton;
@@ -27,6 +42,11 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     private JButton botonIngresar;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
 
+    /**
+     * Depósito estático que almacena las monedas de vuelto.
+     * Accesible públicamente para operaciones desde otras clases.
+     */
+
     public static Deposito<Moneda> dep_vuelto;
     public static Moneda m;
     public static int dineroDisp;
@@ -36,6 +56,18 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     private String compra;
     JLabel productos;
+
+    /**
+     * Constructor de la clase ExpendedorVisual.
+     * Inicializa todos los componentes de la interfaz gráfica de la máquina expendedora.
+     * El constructor configura:
+     *   Los botones de radio para selección de productos
+     *   El grupo de botones para selección exclusiva
+     *   Los paneles de disposición de componentes
+     *   Los botones de acción (comprar, recoger, vuelto)
+     *   La etiqueta de dinero disponible
+     *   Los listeners para eventos de usuario
+     */
 
     public ExpendedorVisual(){
         super(new BorderLayout());
@@ -135,12 +167,30 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Actualiza la imagen del producto mostrada cuando se selecciona un botón de radio.
+     * Se ejecuta automáticamente cuando el usuario hace clic en cualquiera de los
+     * botones de radio de productos (Coca Cola, Fanta, Sprite, Snicker, Super8).
+     *
+     * @param e El evento de acción que contiene el comando del botón seleccionado
+     *
+     * @see ActionListener#actionPerformed(ActionEvent)
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         productos.setIcon(imagenProducto("/"
                 + e.getActionCommand()
                 + ".png"));
     }
+    /**
+     * Carga y retorna un ImageIcon desde un recurso.
+     * Método estático protegido que maneja la carga de imágenes de productos.
+     *
+     * @param path La ruta del archivo de imagen relativa a los recursos
+     * @return ImageIcon con la imagen cargada, o null si no se encuentra el archivo
+     *
+     * @see ImageIcon
+     */
 
     protected static ImageIcon imagenProducto(String path) {
         URL imgURL = ExpendedorVisual.class.getResource(path);
@@ -151,6 +201,21 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             return null;
         }
     }
+    /**
+     * Realiza el proceso de compra del producto seleccionado.
+     *
+     * Este método:
+     *   Identifica el producto seleccionado y su precio
+     *   Crea un comprador con el dinero disponible
+     *   Procesa la transacción a través del expendedor
+     *   Actualiza el vuelto y el dinero disponible
+     *   Muestra mensajes informativos al usuario
+     *   Resetea el contador de dinero del comprador
+     *
+     *
+     * Maneja las excepciones que puedan ocurrir durante la compra
+     * y previene compras múltiples sin recoger el producto anterior.
+     */
 
     public void realizarCompra() {
         PRECIOS tipo = null;
@@ -196,7 +261,17 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                     "Error en la compra: " + e.getMessage());
         }
     }
-
+    /**
+     * Permite al usuario recoger el producto comprado.
+     *
+     * Este método verifica si hay un producto disponible para recoger
+     * y procesa la recogida, mostrando un mensaje confirmatorio.
+     * Después de recoger, resetea la variable de compra para permitir
+     * nuevas transacciones.
+     *
+     * Si no hay productos por recoger, informa al usuario mediante
+     * un mensaje de diálogo.
+     */
 
     public void recogerProducto(){
         if (compra!= null) {
@@ -211,24 +286,47 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
     }
 
-   /* private void actualizarStock() {
-        for (int i = 0; i < PRECIOS.values().length; i++) {
-            PRECIOS producto = PRECIOS.values()[i];
-            int stock = expendedor.getStock(producto);
-            labelStock[i].setText(producto.name() +": "+ stock + " unidades.");
-        }
-    } */
+    /**
+     * Dibuja el fondo gráfico de la máquina expendedora.
+     * Sobrescribe el método paintComponent para personalizar la apariencia visual.
+     *
+     * @param g El contexto gráfico usado para pintar el componente
+     *
+     * @see JPanel#paintComponent(Graphics)
+     */
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.GRAY);
         g.fillRect(50, 50, 700, 600);
     }
 
+    /**
+     * Actualiza la variable de dinero disponible basándose en el depósito de vuelto.
+     * Calcula el valor total de todas las monedas en el depósito de vuelto
+     * y actualiza la variable dineroDisp.
+     */
 
     public void depoDineroDisp() {
         dineroDisp = dep_vuelto.calcularTotalValor();
 
     }
+
+    /**
+     * Transfiere todas las monedas del monedero del comprador a la máquina expendedora.
+     * Simula  ser la ranura por la que pasa la moneda
+     *
+     * Este método:
+     *
+     *   Verifica que haya monedas disponibles en el monedero del comprador
+     *   Transfiere todas las monedas al depósito de vuelto de la máquina
+     *   Actualiza el dinero disponible y los contadores visuales
+     *   Resetea el dinero total del comprador
+     *
+     *
+     * Si no hay monedas disponibles, muestra un mensaje informativo.
+     */
+
 
     private void transferirMonedas() {
         Deposito<Moneda> deposito = CompradorVisual.depositoComprador;
@@ -248,7 +346,11 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         PanelMonedas.actualizarDinero();
     }
 
-    private void sacarVuelto() {
+/**
+ * Permite al usuario retirar el vuelto de la máquina expendedora.
+ */
+
+ private void sacarVuelto() {
         if (dep_vuelto.size()==0) {
             JOptionPane.showMessageDialog(this, "No hay vuelto por retirar");
         }
@@ -264,7 +366,11 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         JOptionPane.showMessageDialog(this, "Vuelto retirado con éxito.");
     }
 
-    public static void actualizarDinero() {
+/**
+ * Permite al usuario retirar el vuelto de la máquina expendedora.
+ */
+
+ public static void actualizarDinero() {
         labelDinero.setText("DINERO: $" + dineroDisp);
     }
 }
