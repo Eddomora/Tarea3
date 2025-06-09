@@ -30,8 +30,10 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     public static Moneda m;
     public static int dineroDisp;
     private static JLabel labelDinero;
-    //private JLabel[] labelStock = new JLabel[5]; //numero de productors
-    //private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
+
+    //Label de stock
+    private JLabel[] labelStock = new JLabel[5]; //numero de productors
+    private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
 
     private String compra;
     private JLabel productos;
@@ -102,10 +104,12 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         panelEstado.add(Box.createVerticalGlue());
 
         //labels para stock de cada producto
-       /*for(int i = 0; i<labelStock.length; i++) {
+        for(int i = 0; i<labelStock.length; i++) {
             labelStock[i] = new JLabel(nombreProductos[i] + ": 10 unidades");
+            labelStock[i].setFont(new Font("Arial", Font.BOLD, 12));
+            labelStock[i].setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
             panelEstado.add(labelStock[i]);
-        } */
+        }
 
         JPanel panelInferior = new JPanel();
 
@@ -199,8 +203,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor);
                 compra = c.queCompraste();
                 dep_vuelto = c.cuantoVuelto();
-                //depoDineroDisp(dep_vuelto);
-                //actualizarStock();
+                actualizarStock();
                 depoDineroDisp();
 
                 JOptionPane.showMessageDialog(this,
@@ -232,13 +235,14 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             JOptionPane.showMessageDialog(this, "No hay nada para recoger");
         }
     }
-    /* private void actualizarStock() {
+    private void actualizarStock() {
         for (int i = 0; i < PRECIOS.values().length; i++) {
             PRECIOS producto = PRECIOS.values()[i];
             int stock = expendedor.getStock(producto);
             labelStock[i].setText(producto.name() +": "+ stock + " unidades.");
         }
-    } */
+    }
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.GRAY);
