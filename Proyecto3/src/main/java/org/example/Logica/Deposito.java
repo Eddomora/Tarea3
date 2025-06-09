@@ -29,10 +29,17 @@ public class Deposito<T>{
      * @return el primer objeto almacenado, o {@code null} si deposito es vacío.
      */
     public T getCosa() {
-        if (dep.size() == 0) {
+        if (dep.isEmpty()) {
             return null;
         }
-        return dep.remove(0);
+        return dep.removeFirst();
+    }
+
+    public T verCosa(){
+        if (dep.isEmpty()) {
+            return null;
+        }
+        return dep.getFirst();
     }
 
     public int size(){

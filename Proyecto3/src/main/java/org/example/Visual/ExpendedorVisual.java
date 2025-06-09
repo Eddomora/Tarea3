@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 
 public class ExpendedorVisual extends JPanel implements ActionListener {
     private JRadioButton cocaButton;
@@ -142,7 +143,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     }
 
     protected static ImageIcon imagenProducto(String path) {
-        java.net.URL imgURL = ExpendedorVisual.class.getResource(path);
+        URL imgURL = ExpendedorVisual.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
@@ -200,7 +201,9 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     public void recogerProducto(){
         if (compra!= null) {
-            JOptionPane.showMessageDialog(this, "Recogiste: " + compra + "\nTu vuelto es: $" + dineroDisp);
+
+            JOptionPane.showMessageDialog(this, "Recogiste: " + compra);
+      
             //dineroDisp = 0;
             compra = null;
 
@@ -222,8 +225,10 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         g.fillRect(50, 50, 700, 600);
     }
 
+
     public void depoDineroDisp() {
         dineroDisp = dep_vuelto.calcularTotalValor();
+
     }
 
     private void transferirMonedas() {
@@ -240,6 +245,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
 
         actualizarDinero();
+        PanelMonedas.totalDinero = 0;
         PanelMonedas.actualizarDinero();
     }
 
