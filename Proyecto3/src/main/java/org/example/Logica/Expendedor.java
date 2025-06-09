@@ -71,29 +71,30 @@ public class Expendedor {
             for (int i = 0; i < monedero.size(); i++) {
                 m = monedero.getCosa();
                 monedasVuelto.addCosa(m);
+                System.out.println(m);
             }
             throw new PagoInsuficienteException("No te alcanza para comprar el producto");
         }
 
         producto = null;
         switch (select) {
-            case PRECIOS.COCACOLA:
+            case COCACOLA:
                 producto = coca.getCosa();
                 break;
 
-            case PRECIOS.SPRITE:
+            case SPRITE:
                 producto = sprite.getCosa();
                 break;
 
-            case PRECIOS.FANTA:
+            case FANTA:
                 producto = fanta.getCosa();
                 break;
 
-            case PRECIOS.SNICKERS:
+            case SNICKERS:
                 producto = snickers.getCosa();
                 break;
 
-            case PRECIOS.SUPER8:
+            case SUPER8:
                 producto = super8.getCosa();
                 break;
         }
@@ -113,52 +114,31 @@ public class Expendedor {
         }
 
         //añadir el vuelto como un deposito
-        random = new Random();
-        int serie = random.nextInt(200);
+        int serie = 1001;
         int vuelto = valorMonedas - precio;
         while (vuelto >= 1500) {
             monedasVuelto.addCosa(new Moneda1500(serie));
             vuelto -= 1500;
 
-            int nuevo = random.nextInt(400);
-            if (nuevo == serie){
-                nuevo = random.nextInt(400);
-            } else {
-                serie = nuevo;
-            }
+            serie++;
         }
         while (vuelto >= 1000) {
             monedasVuelto.addCosa(new Moneda1000(serie));
             vuelto -= 1000;
 
-            int nuevo = random.nextInt(400);
-            if (nuevo == serie){
-                nuevo = random.nextInt(400);
-            } else {
-                serie = nuevo;
-            }
+            serie++;
         }
         while (vuelto >= 500) {
             monedasVuelto.addCosa(new Moneda500(serie));
             vuelto -= 500;
 
-            int nuevo = random.nextInt(400);
-            if (nuevo == serie){
-                nuevo = random.nextInt(400);
-            } else {
-                serie = nuevo;
-            }
+            serie++;
         }
         while (vuelto >= 100) {
             monedasVuelto.addCosa(new Moneda100(serie));
             vuelto -= 100;
 
-            int nuevo = random.nextInt(400);
-            if (nuevo == serie){
-                nuevo = random.nextInt(400);
-            } else {
-                serie = nuevo;
-            }
+            serie++;
         }
     }
 

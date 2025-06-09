@@ -176,7 +176,6 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 Comprador c = new Comprador(dep_vuelto, tipo, precio, expendedor);
                 compra = c.queCompraste();
                 dep_vuelto = c.cuantoVuelto();
-                //labelDinero.setText("DINERO: $0");
                 //depoDineroDisp(dep_vuelto);
                 //actualizarStock();
                 depoDineroDisp();
