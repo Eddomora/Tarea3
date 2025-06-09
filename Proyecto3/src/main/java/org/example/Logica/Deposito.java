@@ -45,4 +45,14 @@ public class Deposito<T>{
     public int size(){
         return dep.size();
     }
+
+    public int calcularTotalValor() {
+        int total = 0;
+        for (T objeto : dep) {
+            if (objeto instanceof Moneda) {
+                total += ((Moneda) objeto).getValor();
+            }
+        } return total;
+    }
+
 }
