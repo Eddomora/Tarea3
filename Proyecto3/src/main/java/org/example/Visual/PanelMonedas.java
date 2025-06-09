@@ -21,7 +21,7 @@ public class PanelMonedas extends JPanel {
     public PanelMonedas(JLabel contador) {
         super(new FlowLayout());
 
-        numero = new Random();
+        serie = 1;
 
         this.contadorDinero = contador;
 
@@ -59,15 +59,10 @@ public class PanelMonedas extends JPanel {
             totalDinero += m.getValor();
             CompradorVisual.depositoComprador.addCosa(m);
             contadorDinero.setText("Dinero: $" + totalDinero);
+            serie++;
             //CompradorVisual.ingresoMoneda(m);
         } catch (NullPointerException e) {
             e.printStackTrace();  // Muestra la línea exacta del error
-        }
-        int nuevo = numero.nextInt(1000);
-        if (nuevo == serie){
-            nuevo = numero.nextInt(1000);
-        } else {
-            serie = nuevo;
         }
     }
     public static void actualizarDinero() {
