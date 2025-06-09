@@ -92,12 +92,18 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         //Creación de panel para ver el dinero disponible para comprar.
         JPanel panelEstado = new JPanel();
         panelEstado.setLayout(new BoxLayout(panelEstado, BoxLayout.Y_AXIS));
+        panelEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelDinero = new JLabel("DINERO: $" + dineroDisp);
+
         panelEstado.add(labelDinero);
+        panelEstado.add(Box.createVerticalGlue());
 
         JButton botonTransferir = new JButton("INGRESAR MONEDA");
         botonTransferir.addActionListener(e -> transferirMonedas());
+        botonTransferir.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelEstado.add(botonTransferir);
+
+        panelEstado.add(Box.createVerticalGlue());
 
         //labels para stock de cada producto
        /*for(int i = 0; i<labelStock.length; i++) {
@@ -227,7 +233,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     private void transferirMonedas() {
         Deposito<Moneda> deposito = CompradorVisual.depositoComprador;
         if(deposito.size() == 0) {
-            JOptionPane.showMessageDialog(this, "Primero saca alguna moneda.");
+            JOptionPane.showMessageDialog(this, "No hay monedas disponibles.");
             return;
         }
         while (deposito.size() > 0) {
