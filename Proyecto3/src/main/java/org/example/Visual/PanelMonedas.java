@@ -11,7 +11,7 @@ public class PanelMonedas extends JPanel {
     private JButton boton500;
     private JButton boton100;
 
-    private Random numero;
+    private Random numero = new Random();
     private int serie;
     private static JLabel contadorDinero;
 
