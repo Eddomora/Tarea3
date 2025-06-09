@@ -24,7 +24,6 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
 
     private JButton botonComprar;
     private JButton botonRecogerProd;
-    private JButton botonIngresar;
     private Expendedor expendedor = new Expendedor(10); //exp con stock 10 (prueba inicial)
 
     public static Deposito<Moneda> dep_vuelto;
@@ -35,7 +34,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     //private static final String[] nombreProductos = {"CocaCola", "Fanta", "Sprite", "Snickers", "Super8"};
 
     private String compra;
-    JLabel productos;
+    private JLabel productos;
 
     public ExpendedorVisual(){
         super(new BorderLayout());
@@ -76,11 +75,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         snickerButton.addActionListener(this);
         super8Button.addActionListener(this);
 
-        productos = new JLabel(imagenProducto("/"
-                + cocaString
-                + ".png"));
-
-
+        productos = new JLabel("", JLabel.CENTER);
         productos.setPreferredSize(new Dimension(277, 222));
 
         JPanel radioPanel = new JPanel(new GridLayout(0, 1));
@@ -133,13 +128,41 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         add(panelInferior, BorderLayout.SOUTH);
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        //posicion inicial, muestra imagen cocacola, su nombre y el precio
+        cocaButton.setSelected(true);
+        productos.setIcon(imagenProducto("/CocaCola.png"));
+        productos.setText("Coca Cola $" + PRECIOS.COCACOLA.getPrecio());
+
+        productos.setHorizontalTextPosition(JLabel.CENTER);
+        productos.setVerticalTextPosition(JLabel.BOTTOM);
+        productos.setFont(new Font("Arial", Font.BOLD, 16));//fuente del texto
+        productos.setForeground(Color.WHITE);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        productos.setIcon(imagenProducto("/"
-                + e.getActionCommand()
-                + ".png"));
+        String productoSeleccionado = e.getActionCommand();
+        int precio = 0;
+        //muestra el precio segun el producto
+        switch (productoSeleccionado) {
+            case "CocaCola":
+                precio = PRECIOS.COCACOLA.getPrecio();
+                break;
+            case "Fanta":
+                precio = PRECIOS.FANTA.getPrecio();
+                break;
+            case "Sprite":
+                precio = PRECIOS.SPRITE.getPrecio();
+                break;
+            case "Snicker":
+                precio = PRECIOS.SNICKERS.getPrecio();
+                break;
+            case "Super8":
+                precio = PRECIOS.SUPER8.getPrecio();
+                break;
+        }
+        productos.setIcon(imagenProducto("/" + productoSeleccionado + ".png"));
+        productos.setText(productoSeleccionado + " - $" + precio);
     }
 
     protected static ImageIcon imagenProducto(String path) {
@@ -180,7 +203,6 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 //depoDineroDisp(dep_vuelto);
                 //actualizarStock();
                 depoDineroDisp();
-                int vuelto_total = dineroDisp;
 
                 JOptionPane.showMessageDialog(this,
                         "Compraste: " + compra);
@@ -211,8 +233,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
             JOptionPane.showMessageDialog(this, "No hay nada para recoger");
         }
     }
-
-   /* private void actualizarStock() {
+    /* private void actualizarStock() {
         for (int i = 0; i < PRECIOS.values().length; i++) {
             PRECIOS producto = PRECIOS.values()[i];
             int stock = expendedor.getStock(producto);
