@@ -172,6 +172,8 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
                 //labelDinero.setText("DINERO: $0");
                 //depoDineroDisp(dep_vuelto);
                 //actualizarStock();
+                depoDineroDisp(dep_vuelto);
+                int vuelto_total = dineroDisp;
 
                 JOptionPane.showMessageDialog(this,
                         "Compraste: " + compra +
@@ -216,6 +218,7 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
     }
 
     public void depoDineroDisp(Deposito<Moneda> dep){
+        //solo contar, no extraer
         Moneda m;
         dineroDisp = 0;
         for (int i = 0; i < dep.size(); i++) {
@@ -238,7 +241,6 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
         }
 
         actualizarDinero();
-        PanelMonedas.totalDinero = 0;
         PanelMonedas.actualizarDinero();
     }
 
