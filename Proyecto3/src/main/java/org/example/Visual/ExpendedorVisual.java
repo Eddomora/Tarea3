@@ -401,4 +401,12 @@ public class ExpendedorVisual extends JPanel implements ActionListener {
  public static void actualizarDinero() {
         labelDinero.setText("DINERO: $" + dineroDisp);
     }
+    private void actualizarStock() {
+        for (int i = 0; i < PRECIOS.values().length; i++) {
+            PRECIOS producto = PRECIOS.values()[i];
+            int stock = expendedor.getStock(producto);
+            labelStock[i].setText(producto.name() +": "+ stock + " unidades.");
+        }
+    }
+
 }
